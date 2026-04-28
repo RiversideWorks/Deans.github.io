@@ -1,80 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Creative Hero</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-      text-align: center;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    header {
-      padding: 80px 20px;
-      background: #1e293b;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
 
-    h1 {
-      font-size: 3rem;
-      margin: 0;
-    }
+body{
+  background:#111;
+  color:#fff;
+  overflow:hidden;
+}
 
-    p {
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
+/* HERO WRAPPER */
+.hero{
+  height:100vh;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:60px;
+  position:relative;
+}
 
-    .section {
-      padding: 60px 20px;
-    }
+/* LEFT CONTENT */
+.left{
+  max-width:500px;
+  z-index:2;
+}
 
-    .card {
-      background: #1e293b;
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 500px;
-      border-radius: 10px;
-    }
+.left h1{
+  font-size:64px;
+  font-weight:600;
+  line-height:1.1;
+}
 
-    footer {
-      padding: 20px;
-      opacity: 0.6;
-    }
-  </style>
+.left h1 span{
+  background:linear-gradient(90deg,#7cf7c5,#ffb6ff,#ffd36e);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.left p{
+  margin-top:20px;
+  color:#aaa;
+}
+
+.meta{
+  margin-top:30px;
+  font-size:14px;
+  color:#ccc;
+}
+
+.free-event{
+  margin-top:10px;
+  font-size:14px;
+  color:#fff;
+}
+
+/* SOCIAL ICONS */
+.social{
+  margin-top:40px;
+  display:flex;
+  gap:15px;
+}
+
+.social div{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#222;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+}
+
+/* RIGHT SCENE */
+.right{
+  position:relative;
+  width:600px;
+  height:500px;
+}
+
+/* CHAIR FIGURE */
+.person{
+  position:absolute;
+  bottom:0;
+  right:50px;
+  width:220px;
+  height:320px;
+  background:#ddd;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+  border-radius:20px;
+  opacity:0.9;
+}
+
+/* DISCO BALL */
+.ball{
+  position:absolute;
+  bottom:60px;
+  left:120px;
+  width:80px;
+  height:80px;
+  background:radial-gradient(circle,#fff,#aaa);
+  border-radius:50%;
+  animation:float 4s ease-in-out infinite;
+}
+
+/* CLOUD HEAD */
+.cloud{
+  position:absolute;
+  top:60px;
+  right:160px;
+  width:120px;
+  height:80px;
+  background:#fff;
+  border-radius:50px;
+  filter:blur(0.5px);
+  animation:float 5s ease-in-out infinite;
+}
+
+/* ORBIT LINES */
+.orbit{
+  position:absolute;
+  top:40px;
+  right:120px;
+  width:200px;
+  height:200px;
+  border:2px dashed rgba(255,255,255,0.15);
+  border-radius:50%;
+  animation:spin 10s linear infinite;
+}
+
+/* PAPER PLANE */
+.plane{
+  position:absolute;
+  top:120px;
+  right:220px;
+  font-size:22px;
+  animation:fly 6s linear infinite;
+}
+
+/* FLOAT ANIMATION */
+@keyframes float{
+  0%,100%{ transform:translateY(0px);}
+  50%{ transform:translateY(-15px);}
+}
+
+/* SPIN ORBIT */
+@keyframes spin{
+  0%{ transform:rotate(0deg);}
+  100%{ transform:rotate(360deg);}
+}
+
+/* PLANE PATH */
+@keyframes fly{
+  0%{ transform:rotate(0deg) translateX(60px) rotate(0deg);}
+  100%{ transform:rotate(360deg) translateX(60px) rotate(-360deg);}
+}
+
+/* BACKGROUND GLOW */
+.hero::before{
+  content:'';
+  position:absolute;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle, rgba(255,255,255,0.08), transparent);
+  top:-200px;
+  right:-200px;
+  filter:blur(60px);
+}
+
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Welcome 🚀</h1>
-    <p>This is my modern GitHub website</p>
-  </header>
+<section class="hero">
 
-  <div class="section">
-    <div class="card">
-      <h2>About Me</h2>
-      <p>This is where you describe yourself or your project.</p>
-    </div>
+  <!-- LEFT -->
+  <div class="left">
+    <div style="font-size:12px; opacity:0.7;">www.creativitynow.com</div>
 
-    <div class="card">
-      <h2>Projects</h2>
-      <p>Add your work or ideas here.</p>
-    </div>
+    <h1>
+      <span>Creativity</span><br/>is the power
+    </h1>
 
-    <div class="card">
-      <h2>Contact</h2>
-      <p>Email or social links go here.</p>
+    <p>10 October 2023</p>
+    <div class="free-event">Free Event</div>
+
+    <div class="social">
+      <div>t</div>
+      <div>f</div>
+      <div>in</div>
     </div>
   </div>
 
-  <footer>
-    © 2026 My Website
-  </footer>
+  <!-- RIGHT -->
+  <div class="right">
+
+    <div class="orbit"></div>
+    <div class="cloud"></div>
+    <div class="plane">✈</div>
+
+    <div class="ball"></div>
+    <div class="person"></div>
+
+  </div>
+
+</section>
 
 </body>
 </html>
