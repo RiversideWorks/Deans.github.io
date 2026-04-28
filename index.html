@@ -1,224 +1,471 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Creative Hero</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Hero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#2f2e2d;
+      --bg2:#222120;
+      --text:#f2efe9;
+      --muted:#d8d2c9;
+      --gold:#cbb58a;
+      --green:#b9d483;
+      --pink:#f1a8aa;
+      --soft:#fff5ef;
+      --line:#ccb88f;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      font-family:"Poppins",sans-serif;
+      background:
+        radial-gradient(circle at 72% 26%, rgba(255,255,255,.06), transparent 24%),
+        radial-gradient(circle at 68% 18%, rgba(255,255,255,.03), transparent 18%),
+        linear-gradient(135deg,#3a3938 0%, var(--bg) 52%, var(--bg2) 100%);
+      color:var(--text);
+      overflow:hidden;
+    }
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins', sans-serif;
-}
+    .hero{
+      min-height:100vh;
+      position:relative;
+      padding:26px 44px 22px;
+    }
 
-body{
-  background:#111;
-  color:#fff;
-  overflow:hidden;
-}
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      position:relative;
+      z-index:20;
+    }
 
-/* HERO WRAPPER */
-.hero{
-  height:100vh;
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:60px;
-  position:relative;
-}
+    .logo{
+      width:34px;height:34px;
+      border:1px solid rgba(255,255,255,.75);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-size:14px;
+      line-height:1;
+      color:#fff;
+      opacity:.92;
+    }
 
-/* LEFT CONTENT */
-.left{
-  max-width:500px;
-  z-index:2;
-}
+    .nav-links{
+      display:flex;
+      gap:48px;
+      list-style:none;
+      margin:0;
+      padding:0;
+    }
 
-.left h1{
-  font-size:64px;
-  font-weight:600;
-  line-height:1.1;
-}
+    .nav-links a,.login-btn,.ticket-btn,.social a{
+      text-decoration:none;
+      color:var(--text);
+      font-size:13px;
+      letter-spacing:.08em;
+    }
 
-.left h1 span{
-  background:linear-gradient(90deg,#7cf7c5,#ffb6ff,#ffd36e);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+    .login-btn{
+      border:1px solid rgba(203,181,138,.75);
+      padding:8px 22px;
+      display:inline-block;
+    }
 
-.left p{
-  margin-top:20px;
-  color:#aaa;
-}
+    .hero-content{
+      display:grid;
+      grid-template-columns: 1.02fr .98fr;
+      align-items:center;
+      min-height:calc(100vh - 120px);
+      gap:10px;
+    }
 
-.meta{
-  margin-top:30px;
-  font-size:14px;
-  color:#ccc;
-}
+    .hero-copy{
+      padding-left:52px;
+      max-width:560px;
+      z-index:10;
+    }
 
-.free-event{
-  margin-top:10px;
-  font-size:14px;
-  color:#fff;
-}
+    .hero-copy h1{
+      margin:0 0 18px;
+      font-weight:300;
+      line-height:.93;
+      font-size:clamp(56px, 7.8vw, 94px);
+      letter-spacing:-.03em;
+    }
 
-/* SOCIAL ICONS */
-.social{
-  margin-top:40px;
-  display:flex;
-  gap:15px;
-}
+    .hero-copy .line{display:block}
+    .hero-copy .line-1{color:var(--gold)}
+    .hero-copy .line-2{color:#e3a6a3}
 
-.social div{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:#222;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-}
+    .hero-copy p{
+      margin:0 0 30px;
+      max-width:435px;
+      color:rgba(255,255,255,.78);
+      font-size:14px;
+      line-height:1.35;
+      text-align:left;
+    }
 
-/* RIGHT SCENE */
-.right{
-  position:relative;
-  width:600px;
-  height:500px;
-}
+    .ticket-btn{
+      display:inline-block;
+      padding:10px 22px;
+      border:1px solid rgba(203,181,138,.72);
+      min-width:88px;
+      text-align:center;
+    }
 
-/* CHAIR FIGURE */
-.person{
-  position:absolute;
-  bottom:0;
-  right:50px;
-  width:220px;
-  height:320px;
-  background:#ddd;
-  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
-  border-radius:20px;
-  opacity:0.9;
-}
+    .hero-art{
+      position:relative;
+      height:100%;
+      min-height:560px;
+      overflow:visible;
+    }
 
-/* DISCO BALL */
-.ball{
-  position:absolute;
-  bottom:60px;
-  left:120px;
-  width:80px;
-  height:80px;
-  background:radial-gradient(circle,#fff,#aaa);
-  border-radius:50%;
-  animation:float 4s ease-in-out infinite;
-}
+    .cloud{
+      position:absolute;
+      right:8%;
+      top:12%;
+      width:min(53vw, 430px);
+      z-index:4;
+      filter:drop-shadow(0 18px 22px rgba(0,0,0,.16));
+      user-select:none;
+      pointer-events:none;
+    }
 
-/* CLOUD HEAD */
-.cloud{
-  position:absolute;
-  top:60px;
-  right:160px;
-  width:120px;
-  height:80px;
-  background:#fff;
-  border-radius:50px;
-  filter:blur(0.5px);
-  animation:float 5s ease-in-out infinite;
-}
+    .woman{
+      position:absolute;
+      right:18%;
+      bottom:-2%;
+      width:min(30vw, 255px);
+      z-index:3;
+      user-select:none;
+      pointer-events:none;
+    }
 
-/* ORBIT LINES */
-.orbit{
-  position:absolute;
-  top:40px;
-  right:120px;
-  width:200px;
-  height:200px;
-  border:2px dashed rgba(255,255,255,0.15);
-  border-radius:50%;
-  animation:spin 10s linear infinite;
-}
+    .orbit{
+      position:absolute;
+      border-radius:50%;
+      border:2px solid transparent;
+      pointer-events:none;
+      z-index:5;
+      opacity:.98;
+      transform-origin:center;
+    }
 
-/* PAPER PLANE */
-.plane{
-  position:absolute;
-  top:120px;
-  right:220px;
-  font-size:22px;
-  animation:fly 6s linear infinite;
-}
+    .orbit-1{
+      width:410px;height:185px;
+      right:6%;top:17%;
+      border-top-color:#c4d56e;
+      border-bottom-color:#f0a8aa;
+      transform:rotate(6deg);
+    }
 
-/* FLOAT ANIMATION */
-@keyframes float{
-  0%,100%{ transform:translateY(0px);}
-  50%{ transform:translateY(-15px);}
-}
+    .orbit-2{
+      width:392px;height:168px;
+      right:8%;top:27%;
+      border-top-color:#f0a8aa;
+      border-bottom-color:#c4d56e;
+      transform:rotate(-18deg);
+    }
 
-/* SPIN ORBIT */
-@keyframes spin{
-  0%{ transform:rotate(0deg);}
-  100%{ transform:rotate(360deg);}
-}
+    .orbit-3{
+      width:336px;height:144px;
+      right:15%;top:34%;
+      border-top-color:#ead0a5;
+      border-bottom-color:#f0a8aa;
+      transform:rotate(18deg);
+    }
 
-/* PLANE PATH */
-@keyframes fly{
-  0%{ transform:rotate(0deg) translateX(60px) rotate(0deg);}
-  100%{ transform:rotate(360deg) translateX(60px) rotate(-360deg);}
-}
+    .bird,.plane,.spark{
+      position:absolute;
+      z-index:6;
+      pointer-events:none;
+      user-select:none;
+      filter:drop-shadow(0 2px 2px rgba(0,0,0,.14));
+    }
 
-/* BACKGROUND GLOW */
-.hero::before{
-  content:'';
-  position:absolute;
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle, rgba(255,255,255,0.08), transparent);
-  top:-200px;
-  right:-200px;
-  filter:blur(60px);
-}
+    .bird{
+      width:18px;
+      height:auto;
+      opacity:.96;
+    }
 
-</style>
+    .bird-1{left:58%; top:18%}
+    .bird-2{left:76%; top:29%}
+    .bird-3{left:63%; top:42%}
+
+    .plane{
+      width:58px;
+      left:46%;
+      top:48%;
+      transform:rotate(-14deg);
+    }
+
+    .spark{
+      width:10px;
+      height:10px;
+      opacity:.92;
+    }
+
+    .spark-1{left:69%; top:16%}
+    .spark-2{left:82%; top:21%}
+    .spark-3{left:85%; top:41%}
+    .spark-4{left:67%; top:44%}
+
+    .date{
+      position:absolute;
+      right:5%;
+      top:49%;
+      z-index:7;
+      text-align:center;
+      color:#f2f0ed;
+      font-weight:300;
+      line-height:1.08;
+    }
+
+    .date span{display:block}
+    .date .d1{font-size:26px}
+    .date .d2{font-size:32px}
+    .date .d3{font-size:28px}
+
+    .plus-btn{
+      position:absolute;
+      right:6%;
+      bottom:10%;
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      border:2px solid #d9b48a;
+      background:transparent;
+      color:#f4c9a5;
+      font-size:34px;
+      line-height:0;
+      display:grid;
+      place-items:center;
+      z-index:7;
+      padding:0;
+    }
+
+    .social{
+      position:absolute;
+      left:50%;
+      bottom:26px;
+      transform:translateX(-50%);
+      display:flex;
+      gap:26px;
+      z-index:10;
+    }
+
+    .social a{
+      font-size:15px;
+      opacity:.95;
+    }
+
+    @media (max-width: 980px){
+      body{overflow:auto}
+      .hero{
+        padding:20px;
+      }
+      .nav-links{display:none}
+      .hero-content{
+        grid-template-columns:1fr;
+        min-height:auto;
+        gap:0;
+      }
+      .hero-copy{
+        padding:34px 8px 18px;
+      }
+      .hero-art{
+        min-height:520px;
+      }
+      .cloud{
+        width:min(84vw, 430px);
+        right:2%;
+      }
+      .woman{
+        width:min(48vw, 255px);
+        right:14%;
+      }
+      .orbit-1{width:360px;height:160px}
+      .orbit-2{width:342px;height:146px}
+      .orbit-3{width:300px;height:130px}
+      .date{right:5%; top:46%}
+    }
+
+    @media (max-width: 640px){
+      .hero-copy h1{font-size:58px}
+      .hero-copy p{font-size:13px}
+      .cloud{top:12%}
+      .woman{bottom:0}
+      .social{bottom:14px}
+    }
+  </style>
 </head>
-
 <body>
+  <header class="hero">
+    <nav class="nav">
+      <div class="logo">◎</div>
+      <ul class="nav-links">
+        <li><a href="#">HOME</a></li>
+        <li><a href="#">ABOUT</a></li>
+        <li><a href="#">GALLERY</a></li>
+        <li><a href="#">EVENT</a></li>
+        <li><a href="#">CONTACT</a></li>
+      </ul>
+      <a class="login-btn" href="#">LOGING</a>
+    </nav>
 
-<section class="hero">
+    <div class="hero-content">
+      <section class="hero-copy">
+        <h1>
+          <span class="line line-1">Creativity</span>
+          <span class="line line-2">never ends</span>
+        </h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua.
+        </p>
+        <a class="ticket-btn" href="#">TICKETS</a>
+      </section>
 
-  <!-- LEFT -->
-  <div class="left">
-    <div style="font-size:12px; opacity:0.7;">www.creativitynow.com</div>
+      <section class="hero-art" aria-label="Creative hero illustration">
+        <svg class="cloud" viewBox="0 0 800 520" aria-hidden="true">
+          <defs>
+            <filter id="cloudBlur">
+              <feGaussianBlur stdDeviation="6"/>
+            </filter>
+            <linearGradient id="cloudFill" x1="0" x2="1">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.92"/>
+              <stop offset="100%" stop-color="#efefef" stop-opacity="0.78"/>
+            </linearGradient>
+          </defs>
+          <g filter="url(#cloudBlur)" opacity="0.96">
+            <ellipse cx="270" cy="235" rx="145" ry="100" fill="url(#cloudFill)"/>
+            <ellipse cx="360" cy="190" rx="160" ry="118" fill="url(#cloudFill)"/>
+            <ellipse cx="470" cy="225" rx="155" ry="110" fill="url(#cloudFill)"/>
+            <ellipse cx="560" cy="250" rx="132" ry="92" fill="url(#cloudFill)"/>
+            <ellipse cx="410" cy="280" rx="215" ry="84" fill="url(#cloudFill)"/>
+          </g>
+        </svg>
 
-    <h1>
-      <span>Creativity</span><br/>is the power
-    </h1>
+        <svg class="woman" viewBox="0 0 260 430" aria-hidden="true">
+          <defs>
+            <linearGradient id="dress" x1="0" x2="1">
+              <stop offset="0%" stop-color="#4a4a4a"/>
+              <stop offset="100%" stop-color="#b7b7b7"/>
+            </linearGradient>
+            <linearGradient id="skin" x1="0" x2="1">
+              <stop offset="0%" stop-color="#7e6a61"/>
+              <stop offset="100%" stop-color="#a58b7d"/>
+            </linearGradient>
+          </defs>
+          <path d="M151 77c0 16-12 28-28 28s-28-12-28-28 12-28 28-28 28 12 28 28Z" fill="url(#skin)" opacity=".55"/>
+          <path d="M106 103c8 6 14 16 16 30l5 40c1 8 7 15 15 17l12 3 7 180c1 30-18 57-48 66-35 10-73-9-85-43l-30-85c-4-12-3-25 4-36l24-37 10-68c2-17 8-30 19-38l18-14c9-6 18-6 34-15Z" fill="url(#dress)" opacity=".95"/>
+          <path d="M133 122c18 5 40 18 54 38 12 18 17 38 17 61 0 15-2 33-8 54l-18 62-10 90c-1 10-7 18-16 23-7 4-15 5-23 2-15-5-24-21-21-37l15-88-8-89-11-66c-2-12 0-24 6-34 7-12 11-15 23-16Z" fill="#a9a9a9" opacity=".78"/>
+          <path d="M82 132c-6 3-11 10-13 18-5 18-10 48-8 72l4 48-24 32c-9 12-10 28-3 42l27 57c9 19 27 29 47 28 27-2 47-24 47-51v-44" fill="none" stroke="#f0f0f0" stroke-opacity=".18" stroke-width="2"/>
+          <path d="M147 83c-3 19-17 34-34 40l2 20c1 11 10 20 21 20 10 0 18-6 22-15l10-22c-13-7-19-23-21-43Z" fill="url(#skin)" opacity=".48"/>
+        </svg>
 
-    <p>10 October 2023</p>
-    <div class="free-event">Free Event</div>
+        <svg class="plane" viewBox="0 0 120 80" aria-hidden="true">
+          <path d="M5 43L115 5 77 75 60 50 5 43Z" fill="#f4d59f"/>
+          <path d="M5 43L60 50 77 75 5 43Z" fill="#e8c58c"/>
+          <path d="M60 50L115 5 41 46" fill="none" stroke="#fff6e7" stroke-width="3" stroke-linejoin="round"/>
+        </svg>
 
-    <div class="social">
-      <div>t</div>
-      <div>f</div>
-      <div>in</div>
+        <svg class="bird bird-1" viewBox="0 0 40 24" aria-hidden="true">
+          <path d="M2 14c5 0 8-3 10-8 2 5 5 8 10 8 4 0 7-2 10-6-1 7-5 12-10 12-4 0-7-2-10-6-3 4-6 6-10 6 0-3 0-5 0-6Z" fill="#fff2e5"/>
+        </svg>
+        <svg class="bird bird-2" viewBox="0 0 40 24" aria-hidden="true">
+          <path d="M2 14c5 0 8-3 10-8 2 5 5 8 10 8 4 0 7-2 10-6-1 7-5 12-10 12-4 0-7-2-10-6-3 4-6 6-10 6 0-3 0-5 0-6Z" fill="#fff2e5"/>
+        </svg>
+        <svg class="bird bird-3" viewBox="0 0 40 24" aria-hidden="true">
+          <path d="M2 14c5 0 8-3 10-8 2 5 5 8 10 8 4 0 7-2 10-6-1 7-5 12-10 12-4 0-7-2-10-6-3 4-6 6-10 6 0-3 0-5 0-6Z" fill="#fff2e5"/>
+        </svg>
+
+        <svg class="spark spark-1" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.2 7.8L20 10l-7.8 2.2L10 20l-2.2-7.8L0 10l7.8-2.2L10 0Z" fill="#e8d8bf"/></svg>
+        <svg class="spark spark-2" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.2 7.8L20 10l-7.8 2.2L10 20l-2.2-7.8L0 10l7.8-2.2L10 0Z" fill="#f7d0d0"/></svg>
+        <svg class="spark spark-3" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.2 7.8L20 10l-7.8 2.2L10 20l-2.2-7.8L0 10l7.8-2.2L10 0Z" fill="#e8d8bf"/></svg>
+        <svg class="spark spark-4" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.2 7.8L20 10l-7.8 2.2L10 20l-2.2-7.8L0 10l7.8-2.2L10 0Z" fill="#f7d0d0"/></svg>
+
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="orbit orbit-3"></div>
+
+        <div class="date">
+          <span class="d1">10</span>
+          <span class="d2">October</span>
+          <span class="d3">2023</span>
+        </div>
+
+        <button class="plus-btn" aria-label="More">+</button>
+      </section>
     </div>
-  </div>
 
-  <!-- RIGHT -->
-  <div class="right">
+    <footer class="social" aria-label="Social links">
+      <a href="#" aria-label="Facebook">f</a>
+      <a href="#" aria-label="Twitter">t</a>
+      <a href="#" aria-label="Instagram">◎</a>
+    </footer>
+  </header>
 
-    <div class="orbit"></div>
-    <div class="cloud"></div>
-    <div class="plane">✈</div>
+  <script>
+    const birds = [...document.querySelectorAll(".bird")];
+    const plane = document.querySelector(".plane");
+    const orbits = [...document.querySelectorAll(".orbit")];
+    const sparks = [...document.querySelectorAll(".spark")];
 
-    <div class="ball"></div>
-    <div class="person"></div>
+    let t = 0;
 
-  </div>
+    function animate() {
+      t += 0.01;
 
-</section>
+      birds.forEach((bird, i) => {
+        const speed = 0.88 + i * 0.16;
+        const radiusX = 16 - i * 2.2;
+        const radiusY = 8 - i * 1.1;
+        const centerX = 71 + i * 3.5;
+        const centerY = 22 + i * 7.5;
 
+        const x = centerX + Math.cos(t * speed + i * 1.3) * radiusX;
+        const y = centerY + Math.sin(t * speed + i * 1.3) * radiusY;
+
+        bird.style.left = x + "%";
+        bird.style.top = y + "%";
+        bird.style.transform = `translate(-50%, -50%) rotate(${Math.sin(t * speed + i) * 12}deg)`;
+      });
+
+      if (plane) {
+        const x = 35 + Math.cos(t * 1.15) * 20;
+        const y = 49 + Math.sin(t * 1.25) * 9;
+        plane.style.left = x + "%";
+        plane.style.top = y + "%";
+        plane.style.transform = `translate(-50%, -50%) rotate(${Math.sin(t * 1.15) * 16}deg)`;
+      }
+
+      orbits.forEach((orbit, i) => {
+        const rot = (i % 2 === 0 ? 1 : -1) * (6 + Math.sin(t + i * 0.7) * 2);
+        orbit.style.transform = `rotate(${rot}deg)`;
+      });
+
+      sparks.forEach((spark, i) => {
+        const dx = Math.sin(t * (0.8 + i * 0.15) + i) * 3;
+        const dy = Math.cos(t * (0.9 + i * 0.12) + i) * 3;
+        spark.style.transform = `translate(${dx}px, ${dy}px) rotate(${t * 120 + i * 30}deg)`;
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
 </body>
 </html>
