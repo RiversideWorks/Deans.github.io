@@ -578,3 +578,111 @@
 </html>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTA Button</title>
+  <style>
+    :root { --accent: #a4ff00; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #000;
+      display: grid;
+      place-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .cta {
+      width: 320px;
+      height: 88px;
+      border: 2px solid var(--accent);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--accent);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 0 24px;
+      box-sizing: border-box;
+      text-decoration: none;
+    }
+    .cta-text {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      transition: opacity .35s ease, transform .35s ease;
+      transform: translateX(12px);
+      z-index: 2;
+    }
+    .cta:hover .cta-text {
+      opacity: 0;
+      transform: translateX(22px);
+    }
+
+    .plane-wrap {
+      position: absolute;
+      left: 22px;
+      top: 50%;
+      width: 72px;
+      height: 38px;
+      transform: translateY(-50%);
+      transform-origin: center center;
+      transition: left .9s cubic-bezier(.22,.75,.18,1), transform .9s cubic-bezier(.22,.75,.18,1);
+      z-index: 1;
+    }
+    .cta:hover .plane-wrap {
+      left: calc(100% - 94px);
+      transform: translateY(-50%);
+    }
+
+    .plane {
+      width: 100%;
+      height: 100%;
+      display: block;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2.15;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transform: rotate(180deg);
+      transform-origin: center center;
+    }
+
+    .flight-trail {
+      position: absolute;
+      left: -30px;
+      top: 50%;
+      width: 28px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(164,255,0,0), rgba(164,255,0,.9));
+      transform: translateY(-50%) scaleX(0);
+      transform-origin: right center;
+      transition: transform .8s cubic-bezier(.22,.75,.18,1);
+      opacity: .85;
+    }
+    .cta:hover .flight-trail {
+      transform: translateY(-50%) scaleX(1);
+    }
+  </style>
+</head>
+<body>
+  <a class="cta" href="https://riversideworks.com/" target="_blank" rel="noopener noreferrer" aria-label="Chat">
+    <span class="plane-wrap" aria-hidden="true">
+      <span class="flight-trail"></span>
+      <svg class="plane" viewBox="0 0 64 38" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 19 L60 7 L38 19 L60 31 Z" />
+        <path d="M18 19 L30 19" />
+        <path d="M18 19 L11 26" />
+        <path d="M18 19 L11 12" />
+      </svg>
+    </span>
+    <span class="cta-text">CHAT</span>
+  </a>
+</body>
+</html>
