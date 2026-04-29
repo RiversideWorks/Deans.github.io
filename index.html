@@ -105,6 +105,476 @@
         popup.style.display = 'none';
     }
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filterable Flip Cards</title>
+  <style>
+    :root{
+      --bg:#050505;
+      --panel:#0e0e0e;
+      --card:#121212;
+      --border:#242424;
+      --text:#e7e7e7;
+      --muted:#9a9a9a;
+      --accent:#d9ff57;
+      --accent2:#a7c957;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      padding:22px 18px 34px;
+    }
+    .nav{
+      display:flex;
+      gap:26px;
+      flex-wrap:wrap;
+      align-items:center;
+      padding:6px 2px 18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      margin-bottom:22px;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+    .nav::-webkit-scrollbar{display:none}
+    .nav button{
+      background:none;
+      border:0;
+      color:#8a8a8a;
+      font-size:14px;
+      cursor:pointer;
+      padding:6px 0;
+      position:relative;
+      white-space:nowrap;
+      transition:.2s ease;
+    }
+    .nav button:hover{color:#fff}
+    .nav button.active{
+      color:var(--accent);
+    }
+    .nav button.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-12px;
+      width:100%;
+      height:2px;
+      background:var(--accent);
+      border-radius:999px;
+    }
 
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:20px;
+    }
+    .card{
+      perspective:1200px;
+      min-height:334px;
+    }
+    .card-inner{
+      position:relative;
+      width:100%;
+      height:100%;
+      min-height:334px;
+      transform-style:preserve-3d;
+      transition:transform .7s cubic-bezier(.2,.7,.2,1);
+    }
+    .card:hover .card-inner{
+      transform:rotateY(180deg);
+    }
+    .face{
+      position:absolute;
+      inset:0;
+      backface-visibility:hidden;
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:14px;
+      overflow:hidden;
+      background:linear-gradient(180deg,#131313,#0f0f0f);
+      box-shadow:0 10px 25px rgba(0,0,0,.28);
+    }
+    .front{
+      display:flex;
+      flex-direction:column;
+    }
+    .thumb{
+      height:168px;
+      background:#1b1b1b;
+      overflow:hidden;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform:scale(1.01);
+    }
+    .content{
+      padding:16px 16px 14px;
+      display:flex;
+      flex-direction:column;
+      height:100%;
+    }
+    .tag{
+      font-size:12px;
+      color:var(--accent2);
+      margin-bottom:8px;
+    }
+    .title-row{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+    .title{
+      font-size:18px;
+      line-height:1.2;
+      margin:0;
+      font-weight:500;
+      color:#f2f2f2;
+    }
+    .arrow{
+      color:var(--accent);
+      font-size:18px;
+      line-height:1;
+      margin-top:2px;
+      user-select:none;
+    }
+    .excerpt{
+      color:#a3a3a3;
+      font-size:13px;
+      line-height:1.55;
+      margin:10px 0 16px;
+      flex:1;
+    }
+    .meta{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#bdbdbd;
+      font-size:12px;
+      margin-top:auto;
+    }
+    .avatar{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      object-fit:cover;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .back{
+      transform:rotateY(180deg);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:
+        radial-gradient(circle at top left, rgba(217,255,87,.12), transparent 35%),
+        linear-gradient(180deg,#111,#0b0b0b);
+    }
+    .back h3{
+      margin:0 0 10px;
+      font-size:18px;
+      color:#fff;
+    }
+    .back p{
+      margin:0;
+      color:#a9a9a9;
+      line-height:1.6;
+      font-size:13px;
+    }
+    .back .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:max-content;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(217,255,87,.12);
+      border:1px solid rgba(217,255,87,.2);
+      color:var(--accent);
+      font-size:12px;
+      margin-top:16px;
+    }
+
+    .pagination{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color:#8f8f8f;
+      font-size:12px;
+      margin-top:26px;
+      padding-top:14px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .pages{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .page{
+      border:0;
+      background:none;
+      color:#8f8f8f;
+      cursor:pointer;
+      padding:4px 7px;
+      border-radius:6px;
+    }
+    .page.active{
+      background:var(--accent);
+      color:#000;
+      font-weight:700;
+    }
+    .hidden{display:none !important;}
+
+    @media (max-width: 980px){
+      .grid{grid-template-columns:repeat(2, minmax(0,1fr));}
+    }
+    @media (max-width: 640px){
+      .grid{grid-template-columns:1fr;}
+      .card, .card-inner{min-height:320px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav" id="nav">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="popular">Popular</button>
+      <button data-filter="uiux">UI/UX design</button>
+      <button data-filter="graphic">Graphic design</button>
+      <button data-filter="branding">Branding</button>
+      <button data-filter="typography">Typography</button>
+      <button data-filter="3d">3D</button>
+      <button data-filter="illustration">Illustration</button>
+      <button data-filter="animation">Animation</button>
+    </nav>
+
+    <section class="grid" id="grid">
+      <article class="card" data-category="uiux popular">
+        <div class="card-inner">
+          <div class="face front">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80" alt="">
+            </div>
+            <div class="content">
+              <div class="tag">Design</div>
+              <div class="title-row">
+                <h3 class="title">UX review presentations</h3>
+                <div class="arrow">→</div>
+              </div>
+              <div class="excerpt">How do you create compelling presentations that wow your colleagues and impress your managers?</div>
+              <div class="meta">
+                <img class="avatar" src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
+                <div>Olivia Rhye<br><span>20 Jan 2024</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="face back">
+            <div>
+              <h3>UX review presentations</h3>
+              <p>Hover flips this card to reveal a short summary, category label, and extra call-to-action style content.</p>
+              <div class="pill">Read more</div>
+            </div>
+            <p>Category: UI/UX</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="branding popular">
+        <div class="card-inner">
+          <div class="face front">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="">
+            </div>
+            <div class="content">
+              <div class="tag">Product</div>
+              <div class="title-row">
+                <h3 class="title">Migrating to Linear 101</h3>
+                <div class="arrow">→</div>
+              </div>
+              <div class="excerpt">Linear keeps remote software projects, sprints, tasks, and bug tracking. Here's how to get started.</div>
+              <div class="meta">
+                <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                <div>Phoenix Baker<br><span>19 Jan 2024</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="face back">
+            <div>
+              <h3>Migrating to Linear 101</h3>
+              <p>This back side can contain longer descriptive text, buttons, links, or any other information you want to show on hover.</p>
+              <div class="pill">Open article</div>
+            </div>
+            <p>Category: Branding</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="3d popular">
+        <div class="card-inner">
+          <div class="face front">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="">
+            </div>
+            <div class="content">
+              <div class="tag">Software Engineering</div>
+              <div class="title-row">
+                <h3 class="title">Building your API Stack</h3>
+                <div class="arrow">→</div>
+              </div>
+              <div class="excerpt">The rise of RESTful APIs has been met by a rise in tools for testing, managing them, and more.</div>
+              <div class="meta">
+                <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                <div>Lana Steiner<br><span>18 Jan 2024</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="face back">
+            <div>
+              <h3>Building your API Stack</h3>
+              <p>Use the flip side for a brief description, featured tags, or a “learn more” interaction with your own styling.</p>
+              <div class="pill">Explore stack</div>
+            </div>
+            <p>Category: 3D</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="animation">
+        <div class="card-inner">
+          <div class="face front">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80" alt="">
+            </div>
+            <div class="content">
+              <div class="tag">Management</div>
+              <div class="title-row">
+                <h3 class="title">Bill Walsh leadership lessons</h3>
+                <div class="arrow">→</div>
+              </div>
+              <div class="excerpt">Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?</div>
+              <div class="meta">
+                <img class="avatar" src="https://randomuser.me/api/portraits/women/12.jpg" alt="">
+                <div>Alec Whitten<br><span>17 Jan 2024</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="face back">
+            <div>
+              <h3>Bill Walsh leadership lessons</h3>
+              <p>Animation tab can reveal cards like this. Use any category labels you want for the filter behavior.</p>
+              <div class="pill">Watch lesson</div>
+            </div>
+            <p>Category: Animation</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="branding typography">
+        <div class="card-inner">
+          <div class="face front">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="">
+            </div>
+            <div class="content">
+              <div class="tag">Product</div>
+              <div class="title-row">
+                <h3 class="title">PM mental models</h3>
+                <div class="arrow">→</div>
+              </div>
+              <div class="excerpt">Mental models are simple expressions of complex processes or relationships.</div>
+              <div class="meta">
+                <img class="avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="">
+                <div>Demi Wilkinson<br><span>16 Jan 2024</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="face back">
+            <div>
+              <h3>PM mental models</h3>
+              <p>Filtering can show only related cards, while hover flip keeps the original structure visually close to the sample.</p>
+              <div class="pill">Read summary</div>
+            </div>
+            <p>Categories: Branding, Typography</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="uiux illustration">
+        <div class="card-inner">
+          <div class="face front">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="">
+            </div>
+            <div class="content">
+              <div class="tag">Design</div>
+              <div class="title-row">
+                <h3 class="title">What is Wireframing?</h3>
+                <div class="arrow">→</div>
+              </div>
+              <div class="excerpt">Introduction to Wireframing and its Principles. Learn from the best in the industry.</div>
+              <div class="meta">
+                <img class="avatar" src="https://randomuser.me/api/portraits/men/40.jpg" alt="">
+                <div>Candice Wu<br><span>15 Jan 2024</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="face back">
+            <div>
+              <h3>What is Wireframing?</h3>
+              <p>This back face can be customized for more text, buttons, or links. It will flip on hover automatically.</p>
+              <div class="pill">See wireframe guide</div>
+            </div>
+            <p>Categories: UI/UX, Illustration</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="pagination">
+      <div>← Previous</div>
+      <div class="pages">
+        <button class="page active">1</button>
+        <button class="page">2</button>
+        <button class="page">3</button>
+        <span>...</span>
+        <button class="page">8</button>
+        <button class="page">9</button>
+        <button class="page">10</button>
+      </div>
+      <div>Next →</div>
+    </div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.nav button');
+    const cards = document.querySelectorAll('.card');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+
+        cards.forEach(card => {
+          const cats = card.dataset.category.split(' ');
+          const show = filter === 'all' || cats.includes(filter);
+          card.classList.toggle('hidden', !show);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
 </body>
 </html>
