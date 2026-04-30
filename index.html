@@ -578,3 +578,83 @@
 </html>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body { background-color: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+
+        .container { position: relative; width: 250px; height: 400px; display: flex; justify-content: center; align-items: center; }
+
+        .card { 
+            width: 250px; 
+            background: #000; 
+            display: flex; 
+            flex-direction: column; 
+            transition: all 1.5s ease-in-out;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .card.vaporized {
+            opacity: 0;
+            filter: url('#vapor-filter') blur(8px);
+            transform: scale(1.2) rotate(2deg);
+            pointer-events: none;
+        }
+
+        #message {
+            position: absolute;
+            opacity: 0;
+            font-size: 1.2rem;
+            color: #d4ed31;
+            transition: opacity 1s;
+        }
+
+        .image-container { width: 100%; height: 250px; background: #333; overflow: hidden; }
+        .image-container img { width: 100%; height: 100%; object-fit: cover; }
+        .info { padding: 15px 0; }
+        .name { font-weight: bold; margin-bottom: 5px; }
+        .role { color: #d4ed31; font-size: 0.9em; margin-bottom: 10px; }
+        .bio { font-size: 0.85em; color: #888; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="message">Where did it go?</div>
+        <div class="card" id="card" onmouseover="vaporize()">
+            <div class="image-container"><img src="https://via.placeholder.com/250x250" alt="Person"></div>
+            <div class="info">
+                <div class="name">Natali Craig</div>
+                <div class="role">Product Designer</div>
+            </div>
+        </div>
+    </div>
+
+    <svg style="display:none;">
+      <defs>
+        <filter id="vapor-filter">
+          <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="5" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="100" />
+        </filter>
+      </defs>
+    </svg>
+
+    <script>
+        const card = document.getElementById('card');
+        const message = document.getElementById('message');
+
+        function vaporize() {
+            card.classList.add('vaporized');
+            setTimeout(() => {
+                message.style.opacity = '1';
+                setTimeout(() => {
+                    message.style.opacity = '0';
+                    card.classList.remove('vaporized');
+                }, 5000);
+            }, 1500); // Wait for fade out to finish
+        }
+    </script>
+</body>
+</html>
