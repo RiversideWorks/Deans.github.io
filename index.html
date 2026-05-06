@@ -13,7 +13,13 @@
       min-height: 100vh;
     }
 
-    /* ── OUTER HEADER BAR ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── HEADER ── */
     header {
       position: fixed;
       top: 0;
@@ -21,17 +27,8 @@
       right: 0;
       z-index: 1000;
       padding: 16px 0;
-      background: transparent;
     }
 
-    /* ── CENTRED CONTAINER (used everywhere on the site) ── */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    /* ── NAVBAR PILL ── */
     nav {
       background: #1a1a1a;
       border-radius: 50px;
@@ -50,8 +47,10 @@
       margin-right: 8px;
       padding: 6px 10px;
       flex-shrink: 0;
+      text-decoration: none;
     }
 
+    /* ── NAV LINKS (desktop) ── */
     .nav-links {
       display: flex;
       align-items: center;
@@ -83,18 +82,12 @@
       color: #aaa;
     }
 
-    .nav-links a .text-wrap span.duplicate {
-      color: #fff;
-    }
+    .nav-links a .text-wrap span.duplicate { color: #fff; }
 
-    .nav-links a:hover .text-wrap span {
-      transform: translateY(-100%);
-    }
+    .nav-links a:hover .text-wrap span { transform: translateY(-100%); }
 
-    .cta {
-      margin-left: auto;
-      flex-shrink: 0;
-    }
+    /* ── CTA BUTTON ── */
+    .cta { margin-left: auto; flex-shrink: 0; }
 
     .cta a {
       background: #fff;
@@ -106,19 +99,77 @@
       border-radius: 30px;
       display: inline-block;
       transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
     }
 
-    .cta a:hover {
-      background: #e8e8e8;
-      transform: scale(0.97);
+    .cta a:hover { background: #e8e8e8; transform: scale(0.97); }
+
+    /* ── HAMBURGER BUTTON (hidden on desktop) ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: auto;
     }
 
-    /* ── PAGE CONTENT (push down below fixed header) ── */
-    main {
-      padding-top: 100px;
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
     }
 
-    /* ── PLACEHOLDER SECTION (delete when you add real content) ── */
+    /* Hamburger → X animation */
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE MENU DROPDOWN ── */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .mobile-menu.open { max-height: 400px; }
+
+    .mobile-menu a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 10px 14px;
+      border-radius: 12px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .mobile-menu a:hover { background: #2a2a2a; color: #fff; }
+
+    .mobile-menu .mobile-cta {
+      margin-top: 6px;
+      background: #fff;
+      color: #111;
+      font-weight: 600;
+      text-align: center;
+      padding: 11px 14px;
+    }
+
+    .mobile-menu .mobile-cta:hover { background: #e8e8e8; }
+
+    /* ── MAIN CONTENT ── */
+    main { padding-top: 100px; }
+
     .placeholder {
       min-height: 100vh;
       display: flex;
@@ -128,15 +179,55 @@
       font-size: 18px;
       border-top: 1px dashed #ddd;
     }
+
+    /* ────────────────────────────────
+       RESPONSIVE BREAKPOINTS
+    ──────────────────────────────── */
+
+    /* Tablet */
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+
+      .nav-links a { padding: 7px 10px; font-size: 14px; }
+    }
+
+    /* Mobile — switch to hamburger */
+    @media (max-width: 680px) {
+      header { padding: 12px 0; }
+
+      .container { padding: 0 16px; }
+
+      nav {
+        flex-wrap: wrap;
+        border-radius: 20px;
+        padding: 10px 14px;
+        gap: 0;
+      }
+
+      /* Hide desktop links and CTA */
+      .nav-links { display: none; }
+      .cta { display: none; }
+
+      /* Show hamburger */
+      .hamburger { display: flex; }
+
+      /* Show mobile menu below logo + hamburger */
+      .mobile-menu { display: flex; width: 100%; padding-top: 4px; }
+
+      main { padding-top: 90px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <div class="container">
       <nav>
-        <div class="logo">Zynic</div>
+
+        <!-- Logo -->
+        <a href="#" class="logo">Zynic</a>
+
+        <!-- Desktop links -->
         <div class="nav-links">
           <a href="#"><span class="text-wrap"><span>Work</span><span class="duplicate">Work</span></span></a>
           <a href="#"><span class="text-wrap"><span>Services</span><span class="duplicate">Services</span></span></a>
@@ -144,32 +235,62 @@
           <a href="#"><span class="text-wrap"><span>Pricing</span><span class="duplicate">Pricing</span></span></a>
           <a href="#"><span class="text-wrap"><span>Benefits</span><span class="duplicate">Benefits</span></span></a>
         </div>
+
+        <!-- Desktop CTA -->
         <div class="cta">
           <a href="#">See pricing</a>
         </div>
+
+        <!-- Hamburger (mobile only) -->
+        <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- Mobile dropdown -->
+        <div class="mobile-menu" id="mobileMenu">
+          <a href="#">Work</a>
+          <a href="#">Services</a>
+          <a href="#">Awards</a>
+          <a href="#">Pricing</a>
+          <a href="#">Benefits</a>
+          <a href="#" class="mobile-cta">See pricing</a>
+        </div>
+
       </nav>
     </div>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main>
-
-    <!-- YOUR SECTIONS GO HERE — wrap each in .container for centred layout -->
-    <!-- Example structure for every new section you add:
-
+    <!-- Add your sections here, each wrapped in .container -->
+    <!-- Example:
     <section>
       <div class="container">
-        Your content here
+        Content here
       </div>
     </section>
-
     -->
 
-    <div class="placeholder">Your content goes here ↓ scroll to add sections</div>
+    <div class="placeholder">Section 1 — your content here</div>
     <div class="placeholder">Section 2</div>
     <div class="placeholder">Section 3</div>
-
   </main>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.querySelector('.hamburger');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('open');
+        document.querySelector('.hamburger').classList.remove('open');
+      });
+    });
+  </script>
 
 </body>
 </html>
