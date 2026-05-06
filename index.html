@@ -8,14 +8,30 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #f0f0f0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      background: #f5f5f5;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
     }
 
+    /* ── OUTER HEADER BAR ── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 16px 0;
+      background: transparent;
+    }
+
+    /* ── CENTRED CONTAINER (used everywhere on the site) ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── NAVBAR PILL ── */
     nav {
       background: #1a1a1a;
       border-radius: 50px;
@@ -23,8 +39,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      width: 680px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
     }
 
     .logo {
@@ -97,25 +112,64 @@
       background: #e8e8e8;
       transform: scale(0.97);
     }
+
+    /* ── PAGE CONTENT (push down below fixed header) ── */
+    main {
+      padding-top: 100px;
+    }
+
+    /* ── PLACEHOLDER SECTION (delete when you add real content) ── */
+    .placeholder {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 18px;
+      border-top: 1px dashed #ddd;
+    }
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">Zynic</div>
-
-    <div class="nav-links">
-      <a href="#"><span class="text-wrap"><span>Work</span><span class="duplicate">Work</span></span></a>
-      <a href="#"><span class="text-wrap"><span>Services</span><span class="duplicate">Services</span></span></a>
-      <a href="#"><span class="text-wrap"><span>Awards</span><span class="duplicate">Awards</span></span></a>
-      <a href="#"><span class="text-wrap"><span>Pricing</span><span class="duplicate">Pricing</span></span></a>
-      <a href="#"><span class="text-wrap"><span>Benefits</span><span class="duplicate">Benefits</span></span></a>
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Zynic</div>
+        <div class="nav-links">
+          <a href="#"><span class="text-wrap"><span>Work</span><span class="duplicate">Work</span></span></a>
+          <a href="#"><span class="text-wrap"><span>Services</span><span class="duplicate">Services</span></span></a>
+          <a href="#"><span class="text-wrap"><span>Awards</span><span class="duplicate">Awards</span></span></a>
+          <a href="#"><span class="text-wrap"><span>Pricing</span><span class="duplicate">Pricing</span></span></a>
+          <a href="#"><span class="text-wrap"><span>Benefits</span><span class="duplicate">Benefits</span></span></a>
+        </div>
+        <div class="cta">
+          <a href="#">See pricing</a>
+        </div>
+      </nav>
     </div>
+  </header>
 
-    <div class="cta">
-      <a href="#">See pricing</a>
-    </div>
-  </nav>
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- YOUR SECTIONS GO HERE — wrap each in .container for centred layout -->
+    <!-- Example structure for every new section you add:
+
+    <section>
+      <div class="container">
+        Your content here
+      </div>
+    </section>
+
+    -->
+
+    <div class="placeholder">Your content goes here ↓ scroll to add sections</div>
+    <div class="placeholder">Section 2</div>
+    <div class="placeholder">Section 3</div>
+
+  </main>
 
 </body>
 </html>
