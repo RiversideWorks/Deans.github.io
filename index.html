@@ -318,9 +318,7 @@
     /* ── HEADER ── */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 1000;
       padding: 16px 0;
     }
@@ -462,397 +460,7 @@
     /* ── MAIN ── */
     main { padding-top: 100px; }
 
-    /* ── HERO SECTION ── */
-    .hero-section {
-      padding: 100px 0 80px;
-      background: #fff;
-      text-align: center;
-    }
-
-    .hero-title {
-      font-size: clamp(36px, 6vw, 72px);
-      font-weight: 800;
-      color: #111;
-      line-height: 1.15;
-      margin-bottom: 20px;
-      letter-spacing: -1.5px;
-    }
-
-    .italic-part {
-      font-style: italic;
-      font-weight: 400;
-      font-family: Georgia, 'Times New Roman', serif;
-    }
-
-    /* KEY FIX: inline-flex so it sits on the same line */
-    .word-rotate {
-      display: inline-flex;
-      height: 1.15em;
-      overflow: hidden;
-      vertical-align: middle;
-      position: relative;
-    }
-
-    .word-rotate-inner {
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .word-rotate-inner span {
-      display: block;
-      line-height: 1.15em;
-      height: 1.15em;
-      white-space: nowrap;
-    }
-
-    .hero-sub {
-      color: #777;
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 56px;
-    }
-
-    .what-label {
-      font-size: 15px;
-      font-weight: 600;
-      color: #111;
-      margin-bottom: 24px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .tag {
-      border: 1.5px solid #ddd;
-      border-radius: 100px;
-      padding: 10px 22px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: #444;
-      cursor: pointer;
-      text-transform: uppercase;
-      background: #fff;
-      transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.25s;
-      box-shadow: 2px 2px 0px #e0e0e0;
-      transform: rotate(var(--r, 0deg));
-      user-select: none;
-    }
-
-    .tag:hover, .tag.active {
-      background: #111;
-      color: #fff;
-      border-color: #111;
-      box-shadow: 3px 3px 0px #555;
-      transform: rotate(0deg) scale(1.06);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .container { padding: 0 24px; }
-      .nav-links a { padding: 7px 10px; font-size: 14px; }
-    }
-
-    @media (max-width: 680px) {
-      header { padding: 12px 0; }
-      .container { padding: 0 16px; }
-      nav { flex-wrap: wrap; border-radius: 20px; padding: 10px 14px; gap: 0; }
-      .nav-links { display: none; }
-      .cta { display: none; }
-      .hamburger { display: flex; }
-      .mobile-menu { display: flex; width: 100%; padding-top: 4px; }
-      main { padding-top: 90px; }
-      .hero-section { padding: 60px 0 60px; }
-      .hero-title { letter-spacing: -0.5px; }
-      .hero-sub br { display: none; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- HEADER -->
-  <header>
-    <div class="container">
-      <nav>
-        <a href="#" class="logo">Zynic</a>
-
-        <div class="nav-links">
-          <a href="#"><span class="text-wrap"><span>Work</span><span class="duplicate">Work</span></span></a>
-          <a href="#"><span class="text-wrap"><span>Services</span><span class="duplicate">Services</span></span></a>
-          <a href="#"><span class="text-wrap"><span>Awards</span><span class="duplicate">Awards</span></span></a>
-          <a href="#"><span class="text-wrap"><span>Pricing</span><span class="duplicate">Pricing</span></span></a>
-          <a href="#"><span class="text-wrap"><span>Benefits</span><span class="duplicate">Benefits</span></span></a>
-        </div>
-
-        <div class="cta">
-          <a href="#">See pricing</a>
-        </div>
-
-        <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
-          <span></span><span></span><span></span>
-        </button>
-
-        <div class="mobile-menu" id="mobileMenu">
-          <a href="#">Work</a>
-          <a href="#">Services</a>
-          <a href="#">Awards</a>
-          <a href="#">Pricing</a>
-          <a href="#">Benefits</a>
-          <a href="#" class="mobile-cta">See pricing</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-
-  <!-- MAIN -->
-  <main>
-
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-      <div class="container">
-
-        <h1 class="hero-title">
-          Helping <span class="italic-part">startups, and agencies</span><br>
-          execute their <span class="word-rotate"><span class="word-rotate-inner" id="rotator"></span></span>
-        </h1>
-
-        <p class="hero-sub">
-          Achieve your business goals with eye-catching designs.<br>
-          Explore our range of services and solutions.
-        </p>
-
-        <p class="what-label">What are you looking for ?</p>
-
-        <div class="tags">
-          <div class="tag" style="--r:-2deg">Web Design</div>
-          <div class="tag" style="--r:1deg">Landing Page</div>
-          <div class="tag" style="--r:-1deg">UX Design</div>
-          <div class="tag" style="--r:2deg">Mobile App Design</div>
-          <div class="tag" style="--r:-1.5deg">SaaS Design</div>
-          <div class="tag" style="--r:1.5deg">Webflow Website</div>
-          <div class="tag" style="--r:-2deg">Brand Design</div>
-          <div class="tag" style="--r:1deg">UI Design</div>
-          <div class="tag" style="--r:-1deg">Motion Graphics</div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ADD NEW SECTIONS BELOW — wrap content in <div class="container"> -->
-
-  </main>
-
-  <script>
-    // ── Hamburger menu ──
-    function toggleMenu() {
-      const menu = document.getElementById('mobileMenu');
-      const btn = document.querySelector('.hamburger');
-      menu.classList.toggle('open');
-      btn.classList.toggle('open');
-    }
-
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.remove('open');
-        document.querySelector('.hamburger').classList.remove('open');
-      });
-    });
-
-    // ── Word rotator ──
-    const words = ['Design','Web Design','Landing Page','UX Design','Mobile App Design','SaaS Design','Webflow Website','Brand Design','UI Design','Motion Graphics'];
-    const rotator = document.getElementById('rotator');
-    let current = 0;
-
-    words.forEach(w => {
-      const s = document.createElement('span');
-      s.textContent = w;
-      rotator.appendChild(s);
-    });
-
-    setInterval(() => {
-      current = (current + 1) % words.length;
-      rotator.style.transform = `translateY(-${current * 1.15}em)`;
-    }, 1800);
-
-    // ── Tag toggle ──
-    document.querySelectorAll('.tag').forEach(tag => {
-      tag.addEventListener('click', () => tag.classList.toggle('active'));
-    });
-  </script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zynic</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      background: #f5f5f5;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    /* ── HEADER ── */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      padding: 16px 0;
-    }
-
-    nav {
-      background: #1a1a1a;
-      border-radius: 50px;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-    }
-
-    .logo {
-      color: #fff;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-right: 8px;
-      padding: 6px 10px;
-      flex-shrink: 0;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      flex: 1;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      padding: 7px 14px;
-      border-radius: 30px;
-      display: inline-block;
-    }
-
-    .nav-links a .text-wrap {
-      display: inline-flex;
-      flex-direction: column;
-      height: 1.2em;
-      overflow: hidden;
-      vertical-align: middle;
-    }
-
-    .nav-links a .text-wrap span {
-      display: block;
-      line-height: 1.2em;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.35s ease;
-      color: #aaa;
-    }
-
-    .nav-links a .text-wrap span.duplicate { color: #fff; }
-    .nav-links a:hover .text-wrap span { transform: translateY(-100%); }
-
-    .cta { margin-left: auto; flex-shrink: 0; }
-
-    .cta a {
-      background: #fff;
-      color: #111;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 600;
-      padding: 9px 20px;
-      border-radius: 30px;
-      display: inline-block;
-      transition: background 0.2s, transform 0.15s;
-      white-space: nowrap;
-    }
-
-    .cta a:hover { background: #e8e8e8; transform: scale(0.97); }
-
-    /* ── HAMBURGER ── */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 6px;
-      margin-left: auto;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: #fff;
-      border-radius: 2px;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      transform-origin: center;
-    }
-
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* ── MOBILE MENU ── */
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .mobile-menu.open { max-height: 400px; }
-
-    .mobile-menu a {
-      color: #aaa;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 500;
-      padding: 10px 14px;
-      border-radius: 12px;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .mobile-menu a:hover { background: #2a2a2a; color: #fff; }
-
-    .mobile-menu .mobile-cta {
-      margin-top: 6px;
-      background: #fff;
-      color: #111;
-      font-weight: 600;
-      text-align: center;
-      padding: 11px 14px;
-    }
-
-    .mobile-menu .mobile-cta:hover { background: #e8e8e8; }
-
-    /* ── MAIN ── */
-    main { padding-top: 100px; }
-
-    /* ── HERO SECTION ── */
+    /* ── HERO ── */
     .hero-section {
       padding: 100px 0 80px;
       background: #fff;
@@ -874,10 +482,15 @@
       font-family: Georgia, 'Times New Roman', serif;
     }
 
-    /* The rotating word sits inline with "execute their" */
+    .execute-line {
+      display: block;
+      white-space: nowrap;
+    }
+
+    /* THE FIX — tight clip, no bleed */
     .word-rotate {
       display: inline-block;
-      height: 1.15em;
+      height: 1em;
       overflow: hidden;
       vertical-align: bottom;
       position: relative;
@@ -891,16 +504,10 @@
 
     .word-rotate-inner span {
       display: block;
-      line-height: 1.15em;
-      height: 1.15em;
+      line-height: 1em;
+      height: 1em;
       white-space: nowrap;
       text-align: left;
-    }
-
-    /* Wrapper that keeps "execute their [word]" all on one line */
-    .execute-line {
-      display: block;
-      white-space: nowrap;
     }
 
     .hero-sub {
@@ -974,7 +581,6 @@
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <div class="container">
       <nav>
@@ -1008,10 +614,8 @@
     </div>
   </header>
 
-  <!-- MAIN -->
   <main>
 
-    <!-- HERO SECTION -->
     <section class="hero-section">
       <div class="container">
 
@@ -1047,7 +651,6 @@
   </main>
 
   <script>
-    // ── Hamburger ──
     function toggleMenu() {
       document.getElementById('mobileMenu').classList.toggle('open');
       document.querySelector('.hamburger').classList.toggle('open');
@@ -1060,7 +663,6 @@
       });
     });
 
-    // ── Word rotator ──
     const words = ['Design','Web Design','Landing Page','UX Design','Mobile App Design','SaaS Design','Webflow Website','Brand Design','UI Design','Motion Graphics'];
     const rotator = document.getElementById('rotator');
     let current = 0;
@@ -1073,16 +675,13 @@
 
     setInterval(() => {
       current = (current + 1) % words.length;
-      rotator.style.transform = `translateY(-${current * 1.15}em)`;
+      rotator.style.transform = `translateY(-${current}em)`;
     }, 1800);
 
-    // ── Tag toggle ──
     document.querySelectorAll('.tag').forEach(tag => {
       tag.addEventListener('click', () => tag.classList.toggle('active'));
     });
   </script>
 
-</body>
-</html>
 </body>
 </html>
