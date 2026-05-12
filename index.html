@@ -1,6 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Modern Overlay Navigation</title>
+
+<style>
+/* =========================
+   RESET
+========================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  font-family: Inter, Arial, sans-serif;
+  background:#111;
+  overflow-x:hidden;
+}
+
+/* =========================
+   NAV WRAPPER
+========================= */
+.nav-wrapper{
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:9999;
+}
+
+/* =========================
+   MENU BUTTON
+========================= */
+.menu-toggle{
+  width:52px;
+  height:52px;
+  border:none;
+  background:#000;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:0.3s ease;
+  position:relative;
+}
+
+.menu-toggle:hover{
+  transform:scale(1.05);
+}
+
+/* 9 DOT ICON */
+.dots-grid{
+  width:18px;
+  height:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px;
+}
+
+.dots-grid span{
+  width:4px;
+  height:4px;
+  background:#fff;
+  border-radius:50%;
+  display:block;
+  transition:0.3s ease;
+}
+
+/* =========================
+   MENU PANEL
+========================= */
+.menu-panel{
+  position:absolute;
+  top:0;
+  right:0;
+  width:320px;
+  max-width:92vw;
+  background:#000;
+  color:#fff;
+  border-radius:18px;
+  padding:28px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-10px) scale(0.98);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    visibility 0.35s;
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.45);
+}
+
+/* ACTIVE STATE */
+.menu-panel.active{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+}
+
+/* =========================
+   TOP AREA
+========================= */
+.menu-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:30px;
+}
+
+.menu-label{
+  color:#666;
+  font-size:16px;
+  font-weight:500;
+  letter-spacing:0.3px;
+}
+
+/* WHITE CIRCLE */
+.menu-circle{
+  width:14px;
+  height:14px;
+  background:#fff;
+  border-radius:50%;
+}
+
+/* =========================
+   MAIN LINKS
+========================= */
+.main-links{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.main-links a{
+  color:#fff;
+  text-decoration:none;
+  font-size:22px;
+  line-height:1.15;
+  font-weight:500;
+  width:fit-content;
+  transition:0.25s ease;
+}
+
+.main-links a:hover{
+  color:#cfcfcf;
+  transform:translateX(4px);
+}
+
+/* =========================
+   DIVIDER
+========================= */
+.divider{
+  width:100%;
+  height:1px;
+  background:#222;
+  margin:28px 0;
+}
+
+/* =========================
+   RESOURCES
+========================= */
+.resources-title{
+  color:#777;
+  font-size:12px;
+  text-transform:uppercase;
+  margin-bottom:14px;
+  letter-spacing:0.8px;
+  font-weight:600;
+}
+
+.resource-links{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.resource-links a{
+  color:#fff;
+  text-decoration:none;
+  font-size:16px;
+  transition:0.25s ease;
+  width:fit-content;
+}
+
+.resource-links a:hover{
+  color:#bdbdbd;
+  transform:translateX(4px);
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width:480px){
+
+  .nav-wrapper{
+    top:14px;
+    right:14px;
+  }
+
+  .menu-panel{
+    width:100%;
+    max-width:calc(100vw - 28px);
+    padding:24px;
+  }
+
+  .main-links a{
+    font-size:20px;
+  }
+
+  .resource-links a{
+    font-size:15px;
+  }
+}
+
+/* =========================
+   OPTIONAL BACKDROP
+========================= */
+.backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  opacity:0;
+  visibility:hidden;
+  transition:0.3s ease;
+  z-index:9990;
+}
+
+.backdrop.active{
+  opacity:1;
+  visibility:visible;
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKDROP -->
+<div class="backdrop" id="backdrop"></div>
+
+<!-- NAVIGATION -->
+<div class="nav-wrapper">
+
+  <!-- MENU BUTTON -->
+  <button class="menu-toggle" id="menuBtn" aria-label="Open Menu">
+    <div class="dots-grid">
+      <span></span><span></span><span></span>
+      <span></span><span></span><span></span>
+      <span></span><span></span><span></span>
+    </div>
+  </button>
+
+  <!-- MENU PANEL -->
+  <div class="menu-panel" id="menuPanel">
+
+    <div class="menu-top">
+      <div class="menu-label">Work</div>
+      <div class="menu-circle"></div>
+    </div>
+
+    <!-- MAIN NAVIGATION -->
+    <div class="main-links">
+      <a href="#">Services</a>
+      <a href="#">Pricing</a>
+      <a href="#">Approach</a>
+      <a href="#">Book a Call</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- RESOURCES -->
+    <div class="resources">
+      <div class="resources-title">Resources</div>
+
+      <div class="resource-links">
+        <a href="#">Writing</a>
+        <a href="#">Twitter / X</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const menuPanel = document.getElementById("menuPanel");
+const backdrop = document.getElementById("backdrop");
+
+function toggleMenu(){
+  menuPanel.classList.toggle("active");
+  backdrop.classList.toggle("active");
+}
+
+menuBtn.addEventListener("click", toggleMenu);
+backdrop.addEventListener("click", toggleMenu);
+
+/* CLOSE ON ESC */
+document.addEventListener("keydown", (e)=>{
+  if(e.key === "Escape"){
+    menuPanel.classList.remove("active");
+    backdrop.classList.remove("active");
+  }
+});
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zynic</title>
